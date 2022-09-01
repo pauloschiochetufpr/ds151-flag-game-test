@@ -117,6 +117,16 @@ A avaliação será composta pela implementação de 3 etapas:
 
 Obs.: o `Cronometro` aqui mencionado seria o marcador de quantos segundos restam, que deve aparecer no topo da tela do jogo temporizado.
 
+## Cronometro
+
+Para implementação do cronometro e da tela de jogo temporizado, nenhuma biblioteca ou componente de terceiros poderá ser utilizado.
+
+Como sugestão, utilize os métodos nativos `setTimeout` e `setInterval`.
+
+## Entrega
+
+A entrega será feita através do envio do link do repositório no Gitlab na tarefa existente na UFPRVirtual.
+
 ## Lembrando
 
 Faça o fork do projeto, salve no seu grupo da disciplina.
