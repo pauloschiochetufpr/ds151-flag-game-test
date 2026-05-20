@@ -10,135 +10,124 @@ Universidade Federal do Paraná - UFPR
 
 Prof. Alexander Robert Kutzke
 
-* [Instruções para submissão de tarefas e trabalhos](https://gitlab.tadsufpr.net.br/ds122-alexkutzke/material/blob/master/instrucoes_submissao_tarefas_e_trabalhos.md)
-* [Video aula](https://www.youtube.com/watch?v=d6ZTnQNhoCo)
+# Avaliação Prática: Flag Game
 
-# Avaliação Flag Game 
+Bem-vindo ao **Flag Game**! O projeto base fornecido a você já possui a estrutura inicial configurada na pasta `src/` e o modo de jogo principal (Modo Normal) funcional em termos de lógica de acertos.
 
-Utilize o projeto já existente nesse repositório e implemente a seguinte aplicação:
+Sua tarefa nesta avaliação é **estender o aplicativo** consumindo uma API REST para salvar e listar as pontuações, além de implementar um novo modo de jogo (Temporizado) utilizando os recursos fornecidos.
 
-![Flag Game](images/timed.gif)
+## 📁 Estrutura do Projeto
 
-A aplicação consiste em um jogo no qual o usuário deve determinar a qual país uma dada bandeira pertence. O jogo possui dois modos:
+* `src/app/`: Contém as telas e rotas do Expo Router (`index.tsx`, `game.tsx`).
+* `src/hooks/`: Contém o hook `useCronometro.ts` já pronto para você utilizar.
+* `src/data/`: Contém o array de países no arquivo `countries.js`.
 
-* Normal:
-  - 10 perguntas em sequência. A cada acerto soma 1 ponto. Ao final, mostra-se a pontuação e dá a opção de iniciar novamente ou encerrar voltando à tela inicial.
-* Temporizado:
-  - Perguntas em sequência durante 30 segundos. A cada acerto soma 1 ponto. Ao final, mostra-se a pontuação e dá a opção de iniciar novamente ou encerrar voltando à tela inicial.
+## 🚀 O que você deve implementar (Tarefas)
 
-Sempre ao final de um jogo (10 perguntas ou 30 segundos) a pontuação do usuário deve ser salva em um webservice através de uma API (ver informações abaixo).
+A avaliação é dividida em 3 etapas principais:
 
-A aplicação ainda possui uma tela para exibição do placar de pontuação para o modo normal e o modo temporizado.
+### 1. Salvar Pontuação no Modo Normal (30 Pontos)
+O código atual do `src/app/game.tsx` já permite jogar 10 rodadas, mas não salva os dados. 
+* **Tarefa 1:** Ao final do jogo (rodada 10), realize uma requisição `POST` na API local (instruções abaixo) enviando Nome e a Pontuação final. A tela de Fim de Jogo só deve aparecer após o salvamento.
 
-## Layout
+### 2. Criar a Tela de Placar (30 Pontos)
+* **Tarefa:** Crie uma nova tela (ex: `src/app/placar.tsx`) acessível através da tela inicial. Esta tela deve realizar requisições `GET` na API para buscar e exibir as pontuações usando uma `FlatList`.
+* **Interface:** Para simplificar, não utilize bibliotecas de abas complexas. Crie dois botões simples no topo da tela ("Placar Normal" e "Placar Temporizado"). Ao clicar neles, atualize um estado e busque a lista correspondente na API.
 
-![Tela Inicial](images/home1.png)
-![Tela Inicial com campo preenchido](images/home2.png)
-![Tela de Jogo Normal](images/game1.png)
-![Tela de Jogo Normal com opção selecionada](images/game2.png)
-![Tela Acerto Normal](images/hit.png)
-![Tela Erro Normal](images/miss.png)
-![Tela Fim de Jogo Normal](images/end.png)
-![Tela de Jogo com Tempo](images/timed1.png)
-![Tela Acerto com Tempo](images/hit_timed.png)
-![Tela Erro com Tempo](images/miss_timed.png)
-![Tela Fim de Jogo com Tempo](images/end_timed.png)
-![Tela_Pontuacao_1](images/score1.png)
-![Tela_Pontuacao_2](images/score2.png)
+### 3. Modo Temporizado (40 Pontos)
+* **Tarefa:** Crie uma nova tela para o jogo temporizado (ex: `src/app/game-timed.tsx`). Você pode copiar a lógica do `game.tsx` como base, mas a condição de parada muda. Não utilize 10 rodadas. O jogo deve rodar até o tempo acabar.
+* **Cronômetro:** Utilize o hook `useCronometro` fornecido na pasta `src/hooks/`. Ele inicia uma contagem regressiva de 30 segundos.
+* **Fim de Jogo:** Quando o tempo do hook chegar a `0`, o jogo deve parar imediatamente e realizar o `POST` enviando os dados para a rota de *timedscores*.
 
-## Imagens das bandeiras
+---
 
-As imagens das bandeiras podem ser requisitadas pela seguinte API pública: https://flagsapi.com/
-A URL das imagens é aceita como parâmetro para o componente `Image`, portanto, **não** é necessário realizar requisições HTTP, com o `axios`, por exemplo, para exibir as imagens.
+## 💾 Configuração da API Local (json-server)
 
-A lista dos países pode ser encontrada no array presente no arquivo `countries.js`.
-Para utilizá-lo, basta utilizar um `import` similar ao seguinte:
+Nesta avaliação, simularemos um banco de dados real rodando uma API REST no seu próprio computador através do `json-server`.
 
-```js
-import {countries} from 'CAMINHO/PARA/countries';
-```
+**Passo 1: Instalação e Criação do Banco**
+Abra um terminal (separado do terminal onde o Expo rodará) na raiz do projeto e crie um arquivo chamado `db.json` com a seguinte estrutura inicial vazia:
 
-Substitua `CAMINHO/PARA/` com o caminho correto para o arquivo.
-
-## Biblioteca underscore.js
-
-Para operações com Array, como [`shuffle`](https://underscorejs.org/#shuffle) e [`sample`](https://underscorejs.org/#sample), é possível utilizar a biblioteca [Underscore.js](https://underscorejs.org/). Consulte a documentação para sintaxe e funcionamento.
-
-O arquivo da biblioteca já está presente no repositório, e pode ser importado da seguinte forma:
-
-```js
-import _ from 'CAMINHO/PARA/underscore-esm-min';
-```
-
-Substitua `CAMINHO/PARA/` com o caminho correto para o arquivo.
-
-## API para registro da pontuação
-
-O webservice para registro das pontuações pode ser encontrado no endereço [`http://200.236.3.126:9999/`](http://200.236.3.126:9999/).
-
-Cada aluno da disciplina possui seus próprios endpoints, identificados a partir de seu GRR.
-Os seguintes endpoints estão disponíveis:
-
-| Método | URL                                                     | Descrição                                                                     |
-|--------|---------------------------------------------------------|-------------------------------------------------------------------------------|
-| GET    | http://200.236.3.126:9999/scoreboards/{GRR}/scores      | Lista pontuações salvas para o GRR informado com o jogo no modo normal.       |
-| GET    | http://200.236.3.126:9999/scoreboards/{GRR}/timedscores | Lista pontuações salvas para o GRR informado com o jogo no modo temporizado.  |
-| POST   | http://200.236.3.126:9999/scoreboards/{GRR}/scores      | Salva uma nova pontuação para o GRR informado com o jogo no modo normal.      |
-| POST   | http://200.236.3.126:9999/scoreboards/{GRR}/timedscores | Salva uma nova pontuação para o GRR informado com o jogo no modo temporizado. |
-
-Exemplo:
-
-Para acessar as pontuações registradas para o jogo no modo normal, o aluno com GRR 20220000 deve utilizar o seguinte endpoint:
-
-```
-GET http://200.236.3.126:9999/scoreboards/20220000/scores 
-```
-
-Para adição de uma nova pontuação, os campos a seguir são esperados:
-
-```
+```json
 {
-  name:  // nome do jogador,
-  score: // pontuação do jogador
+  "scores": [],
+  "timedscores": []
 }
 ```
 
-## Critérios de Avaliação
+**Passo 2: Iniciar o Servidor**
+Rode o comando abaixo no terminal para iniciar o servidor na porta 3000:
 
-A avaliação será composta pela implementação de 3 etapas:
-
-- (35 pontos) Primeira etapa - pontuação para jogo normal:
-  - Tela de apresentação da pontuação para jogo normal; 
-  - Salvamento de pontuação para jogo normal;
-- (35 pontos) Segunda etapa - pontuação para jogo temporizado:
-  - Tela de jogo temporizado (sem presença do cronometro);
-  - Tela de apresentação da pontuação para jogo temporizado (com navegador `TabNavigator); 
-  - Salvamento de pontuação para jogo temporizado;
-- (30 pontos) Cronometro:
-  - Adição de cronometro para tela de jogo temporizado;
-
-Obs.: o `Cronometro` aqui mencionado seria o marcador de quantos segundos restam, que deve aparecer no topo da tela do jogo temporizado.
-
-## Cronometro
-
-Para implementação do cronometro e da tela de jogo temporizado, nenhuma biblioteca ou componente de terceiros poderá ser utilizado.
-
-Como sugestão, utilize os métodos nativos `setTimeout` e `setInterval`.
-
-## Entrega
-
-A entrega será feita através do envio do link do repositório no Gitlab na tarefa existente na UFPRVirtual.
-
-## Lembrando
-
-Faça o fork do projeto, salve no seu grupo da disciplina.
-Após, clone o projeto e execute o seguinte:
-
-```
-npm install
-expo start
+```bash
+npx json-server --watch db.json --port 3000
 ```
 
+**Passo 3: Como consumir a API no React Native**
+A API estará rodando em `http://localhost:3000`.
+⚠️ **AVISO MUITO IMPORTANTE:** Se você estiver testando o aplicativo no seu celular físico (Expo Go), o celular não entende o que é `localhost`. Você **deve** usar o endereço IP da sua máquina na rede Wi-Fi. Exemplo: `http://192.168.1.15:3000/scores`.
+
+**Endpoints da API:**
+
+| Método | URL (Exemplo usando IP local) | Descrição |
+| --- | --- | --- |
+| GET | `http://localhost:3000/scores` | Retorna as pontuações do modo normal do GRR especificado. |
+| GET | `http://localhost:3000/timedscores` | Retorna as pontuações do modo temporizado do GRR. |
+| POST | `http://localhost:3000/scores` | Salva uma nova pontuação (Modo Normal). |
+| POST | `http://localhost:3000/timedscores` | Salva uma nova pontuação (Modo Temporizado). |
+
+**Estrutura esperada no corpo (Body) do POST:**
+
+```json
+{
+  "name": "Maria Silva",
+  "score": 8
+}
+
 ```
-npm install @react-navigation/material-top-tabs react-native-tab-view
+
+---
+
+## 🛠️ Recursos Fornecidos
+
+**1. O Hook `useCronometro**`
+Para facilitar a implementação da Etapa 3, o arquivo `src/hooks/useCronometro.ts` já exporta a lógica de tempo. Exemplo de uso:
+
+```javascript
+import { useCronometro } from '../hooks/useCronometro';
+
+export default function TelaJogoTemporizado() {
+  const tempoRestante = useCronometro(30, () => {
+    // Esta função será executada automaticamente quando chegar a 0
+    console.log("Tempo acabou! Chamar a API e finalizar o jogo.");
+  });
+
+  // Mostre a variável {tempoRestante} na sua interface
+}
+
 ```
+
+**2. Imagens e Bandeiras**
+A lista dos países está no arquivo `src/data/countries.js`.
+As bandeiras são geradas a partir da API pública [FlagsAPI](https://flagsapi.com/). Apenas passe a URL montada diretamente para a propriedade `source={{ uri: ... }}` do componente `<Image />`. Não é necessário fazer requisição para baixar a imagem.
+
+**3. Manipulação de Arrays (Underscore.js)**
+Se precisar embaralhar as alternativas, você pode usar a biblioteca `underscore-esm-min.js` (já inclusa). Exemplo: `_.shuffle(array)` e `_.sample(array, n)`.
+
+---
+
+## 🏁 Inicialização e Entrega
+
+1. Faça o fork/clone do repositório.
+2. Instale as dependências e inicie o expo:
+
+```bash
+npm ci
+npx expo start -c
+```
+
+3. Inicie o `json-server` em outro terminal.
+```bash
+npx json-server --watch db.json --port 3000
+```
+
+4. **Entrega:** Envie o link do repositório no Gitlab na tarefa existente na UFPRVirtual.
