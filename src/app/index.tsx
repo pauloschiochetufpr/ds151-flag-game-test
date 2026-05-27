@@ -8,7 +8,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcome}>Bem-vindo</Text>
+      <Text style={styles.welcome}>BEM-VINDO</Text>
       <View style={styles.container_name}>
         <Text style={styles.labelName}>Digite seu nome</Text>
         <TextInput 
@@ -16,17 +16,43 @@ const HomeScreen = () => {
           value={username}
           onChangeText={(t) => setUsername(t)}
         />
-        <Button 
-          title="Iniciar"
-          color="#0a0"
-          disabled={username === ''}
-          onPress={() => {
-            router.push({
-              pathname: '/game',
-              params: { username: username }
-            });
-          }}
-        />
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="INICIAR MODO NORMAL"
+            color="#008"
+            disabled={username.trim() === ''}
+            onPress={() => {
+              router.push({
+                pathname: '/game',
+                params: { username: username.trim() }
+              });
+            }}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="INICIAR MODO TEMPORIZADO"
+            color="#008"
+            disabled={username.trim() === ''}
+            onPress={() => {
+              router.push({
+                pathname: '/game-timed',
+                params: { username: username.trim() }
+              });
+            }}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="VER PLACAR"
+            color="#4A4A4A"
+            onPress={() => {
+              router.push({
+                pathname: '/placar'
+              });
+            }}
+          />
+        </View>
       </View>
     </View>
   );
@@ -43,24 +69,31 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: '#004',
     fontFamily: 'monospace',
-    textTransform: 'uppercase',
+    textTransform: 'uppercase'
   },
   container_name: {
     justifyContent: 'center',
+    width: '80%'
   },
   labelName: {
     fontSize: 30,
     fontFamily: 'monospace',
+    textAlign: 'center'
   },
   textInput: {
     borderWidth: 2,
-    margin: 20,
+    marginVertical: 15,
     borderColor: '#008',
     borderRadius: 20,
-    padding: 20,
+    padding: 15,
     fontSize: 20,
-    fontFamily: 'monospace'
+    fontFamily: 'monospace',
+    textAlign: 'center'
   },
+  buttonContainer: {
+    marginVertical: 8
+  }
 });
 
 export default HomeScreen;
+

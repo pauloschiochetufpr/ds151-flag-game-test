@@ -1,0 +1,57 @@
+{
+  "scores": [
+    {
+      "name": "oi",
+      "score": 8,
+      "id": "44UyH0gm9FY"
+    },
+    {
+      "name": "teste",
+      "score": 7,
+      "id": "G7BXaNBP0-I"
+    },
+    {
+      "name": "teste",
+      "score": 4,
+      "id": "vKh4Nw1yKSo"
+    }
+  ],
+  "timedscores": [
+    {
+      "name": "paulo",
+      "score": 7,
+      "id": "Si0qIi94LgY"
+    },
+    {
+      "name": "oi",
+      "score": 2,
+      "id": "5QC-XyrckZg"
+    },
+    {
+      "name": "teste",
+      "score": 7,
+      "id": "2R1uArbX4_A"
+    },
+    {
+      "name": "teste",
+      "score": 6,
+      "id": "ZlJGDyLXtK0"
+    },
+    {
+      "name": "larp",
+      "score": 5,
+      "id": "Viy9oKAop-4"
+    },
+    {
+      "name": "teste",
+      "score": 3,
+      "id": "Erdf1dM-Fis"
+    },
+    {
+      "name": "teste",
+      "score": 7,
+      "id": "x3p3hjvtp20"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
