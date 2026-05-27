@@ -154,3 +154,11 @@ npx json-server --watch db.json --port 3000
 ## Entrega
 
 Envie o link do repositório na tarefa existente na UFPRVirtual.
+
+## Sobre consulta a materiais e uso de IA
+
+É permitida a consulta à documentação do [React Native](https://reactnative.dev/docs/getting-started)
+e ao [material da disciplina](https://ds151-alexkutzke.gitlab.io/material-react-native/00_capa.html)
+
+**O uso de Inteligência Artificial Generativa é absolutamente proibida (mesmo agentes e chats dentro de editores de texto).
+Qualquer indício de geração automática de código implicará em nota zero.**
