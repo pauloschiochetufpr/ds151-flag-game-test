@@ -39,6 +39,10 @@ O código atual do `src/app/game.tsx` já permite jogar 10 rodadas, mas não sal
 * **Cronômetro:** Utilize o hook `useCronometro` fornecido na pasta `src/hooks/`. Ele inicia uma contagem regressiva de 30 segundos.
 * **Fim de Jogo:** Quando o tempo do hook chegar a `0`, o jogo deve parar imediatamente e realizar o `POST` enviando os dados para a rota de *timedscores*.
 
+## Telas da aplicação
+
+<img src="./images/01_home.png" width="200px">
+
 ---
 
 ## 💾 Configuração da API Local (json-server)
@@ -108,7 +112,7 @@ export default function TelaJogoTemporizado() {
 
 **2. Imagens e Bandeiras**
 A lista dos países está no arquivo `src/data/countries.js`.
-As bandeiras são geradas a partir da API pública [FlagsAPI](https://flagsapi.com/). Apenas passe a URL montada diretamente para a propriedade `source={{ uri: ... }}` do componente `<Image />`. Não é necessário fazer requisição para baixar a imagem.
+As bandeiras são geradas a partir da API pública [FlagsCDN](https://flagscdn.com/). Apenas passe a URL montada diretamente para a propriedade `source={{ uri: ... }}` do componente `<Image />`. Não é necessário fazer requisição para baixar a imagem.
 
 **3. Manipulação de Arrays (Underscore.js)**
 Se precisar embaralhar as alternativas, você pode usar a biblioteca `underscore-esm-min.js` (já inclusa). Exemplo: `_.shuffle(array)` e `_.sample(array, n)`.
@@ -130,4 +134,8 @@ npx expo start -c
 npx json-server --watch db.json --port 3000
 ```
 
-4. **Entrega:** Envie o link do repositório no Gitlab na tarefa existente na UFPRVirtual.
+## Entrega
+
+1. Adicione os usuários da dupla (se houver) ao repositório no github;
+2. Adicione o usuário do professor (alexkutzke) ao repositório no github;
+3. Envie o link do repositório na tarefa existente na UFPRVirtual.
